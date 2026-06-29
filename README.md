@@ -71,11 +71,11 @@ Berikut adalah panduan lengkap untuk setiap fitur yang tersedia di dalam aplikas
 
 Aplikasi memiliki sidebar navigasi di sisi kiri yang dapat dibuka/ditutup melalui tombol **☰ (hamburger menu)** di pojok kiri atas header. Sidebar menampilkan tiga menu utama:
 
-| Menu                | Fungsi                                                    |
-| ------------------- | --------------------------------------------------------- |
-| **Dashboard**       | Halaman utama untuk monitoring real-time semua perangkat   |
-| **Device Management** | Halaman untuk menambah, mengedit, dan menghapus perangkat |
-| **Settings**        | Halaman konfigurasi interval ping, notifikasi, dan status sistem |
+| Menu                  | Fungsi                                                           |
+| --------------------- | ---------------------------------------------------------------- |
+| **Dashboard**         | Halaman utama untuk monitoring real-time semua perangkat         |
+| **Device Management** | Halaman untuk menambah, mengedit, dan menghapus perangkat        |
+| **Settings**          | Halaman konfigurasi interval ping, notifikasi, dan status sistem |
 
 > **Tips:** Sidebar akan otomatis menampilkan halaman aktif dengan indikator visual. Klik pada logo **Mesra Network Monitoring** di header untuk kembali ke Dashboard.
 
@@ -136,12 +136,14 @@ Di sisi kanan dashboard terdapat panel **Live Events** yang menampilkan log keja
 - **ALERT_SENT** — notifikasi bahwa alert (Telegram/Email) telah berhasil dikirim.
 
 Setiap event menampilkan:
+
 - Nama perangkat yang terdampak
 - Tipe event (DOWN / RECOVERED)
 - Waktu kejadian
 - Pesan detail
 
 Fitur yang tersedia pada panel ini:
+
 - **Klik event** — mengklik event akan langsung membuka Device Detail Panel dari perangkat terkait.
 - **Hapus individual** — klik tombol ✕ pada event untuk menghapusnya.
 - **Clear All** — tombol "Clear" di header panel untuk menghapus seluruh event sekaligus.
@@ -159,6 +161,7 @@ Ketika Anda mengklik salah satu Device Card di Dashboard, panel detail akan munc
 #### 1. Informasi Perangkat
 
 Bagian atas panel menampilkan:
+
 - **Nama perangkat** dan **tipe** (AP / Router / Server)
 - **IP Address** — dengan tombol copy untuk menyalin alamat IP ke clipboard
 - **Lokasi** perangkat
@@ -178,15 +181,15 @@ Bagian atas panel menampilkan:
 
 Panel menampilkan metrik real-time berikut:
 
-| Metrik            | Penjelasan                                                                     |
-| ----------------- | ------------------------------------------------------------------------------ |
-| **Current Latency** | Latency ping terakhir dalam milidetik                                       |
-| **Average Latency** | Rata-rata latency dari seluruh histori ping yang tersedia                   |
-| **Jitter**          | Variasi latency antar-ping (semakin rendah semakin stabil)                  |
-| **Packet Loss**     | Persentase ping yang gagal dari total percobaan                              |
-| **Uptime (Session)** | Persentase waktu online selama sesi monitoring aktif                        |
-| **Uptime (30 Days)** | Persentase uptime historis selama 30 hari terakhir dari database            |
-| **Uptime (1 Year)**  | Persentase uptime historis selama 1 tahun terakhir dari database            |
+| Metrik               | Penjelasan                                                                      |
+| -------------------- | ------------------------------------------------------------------------------- |
+| **Current Latency**  | Latency ping terakhir dalam milidetik                                           |
+| **Average Latency**  | Rata-rata latency dari seluruh histori ping yang tersedia                       |
+| **Jitter**           | Variasi latency antar-ping (semakin rendah semakin stabil)                      |
+| **Packet Loss**      | Persentase ping yang gagal dari total percobaan                                 |
+| **Uptime (Session)** | Persentase waktu online selama sesi monitoring aktif                            |
+| **Uptime (30 Days)** | Persentase uptime historis selama 30 hari terakhir dari database                |
+| **Uptime (1 Year)**  | Persentase uptime historis selama 1 tahun terakhir dari database                |
 | **Latency Grade**    | Penilaian kualitas latency: Excellent (< 50ms), Fair (50–150ms), Poor (> 150ms) |
 
 #### 4. Latency Sparkline Chart
@@ -214,6 +217,7 @@ Panel menampilkan estimasi traffic bandwidth (RX/TX) secara simulasi untuk membe
 #### 8. Event Log Perangkat
 
 Daftar event historis khusus perangkat ini, termasuk:
+
 - Waktu kejadian
 - Tipe event (DOWN, RECOVERED, ALERT_SENT, MANUAL_TEST)
 - Pesan detail
@@ -247,6 +251,7 @@ Halaman ini digunakan untuk mengelola daftar perangkat yang dimonitor. Akses mel
 #### 1. Daftar Perangkat
 
 Semua perangkat yang terdaftar ditampilkan dalam bentuk tabel/kartu dengan informasi:
+
 - Nama perangkat
 - IP Address
 - Tipe (AP / Router / Server)
@@ -266,16 +271,16 @@ Semua perangkat yang terdaftar ditampilkan dalam bentuk tabel/kartu dengan infor
 1. Klik tombol **"+ Add Device"** di bagian atas halaman.
 2. Modal form akan muncul dengan field berikut:
 
-| Field           | Keterangan                                              | Wajib |
-| --------------- | ------------------------------------------------------- | ----- |
-| **Name**        | Nama perangkat (contoh: AP Lobby Lt.1)                  | ✅    |
-| **IP Address**  | Alamat IP perangkat yang akan di-ping                   | ✅    |
-| **Type**        | Jenis perangkat: AP, Router, atau Server                | ✅    |
+| Field           | Keterangan                                                            | Wajib |
+| --------------- | --------------------------------------------------------------------- | ----- |
+| **Name**        | Nama perangkat (contoh: AP Lobby Lt.1)                                | ✅    |
+| **IP Address**  | Alamat IP perangkat yang akan di-ping                                 | ✅    |
+| **Type**        | Jenis perangkat: AP, Router, atau Server                              | ✅    |
 | **Location**    | Lokasi fisik perangkat (bisa dipilih dari yang ada atau membuat baru) | ✅    |
-| **Model**       | Model/seri perangkat (opsional)                         | ❌    |
-| **MAC Address** | Alamat MAC perangkat (opsional)                         | ❌    |
-| **Firmware**    | Versi firmware perangkat (opsional)                     | ❌    |
-| **Description** | Catatan atau keterangan tambahan (opsional)             | ❌    |
+| **Model**       | Model/seri perangkat (opsional)                                       | ❌    |
+| **MAC Address** | Alamat MAC perangkat (opsional)                                       | ❌    |
+| **Firmware**    | Versi firmware perangkat (opsional)                                   | ❌    |
+| **Description** | Catatan atau keterangan tambahan (opsional)                           | ❌    |
 
 3. Klik **"Create Device"** untuk menyimpan.
 4. Perangkat baru akan langsung muncul di Dashboard dan mulai dimonitor pada siklus ping berikutnya **tanpa perlu restart server**.
@@ -308,13 +313,13 @@ Halaman konfigurasi untuk mengatur perilaku monitoring dan notifikasi. Akses mel
 
 Mengatur seberapa sering sistem mengirimkan ICMP ping ke semua perangkat. Pilihan yang tersedia:
 
-| Interval    | Keterangan                                                        |
-| ----------- | ----------------------------------------------------------------- |
-| **1 Menit** | Monitoring real-time, cocok untuk infrastruktur kritikal           |
-| **2 Menit** | Interval seimbang antara kecepatan deteksi dan beban server        |
-| **5 Menit** | Interval standar untuk monitoring umum                             |
-| **15 Menit** | Beban server rendah, cocok untuk perangkat non-kritikal           |
-| **30 Menit** | Interval minimal, hanya untuk keperluan basic monitoring          |
+| Interval     | Keterangan                                                  |
+| ------------ | ----------------------------------------------------------- |
+| **1 Menit**  | Monitoring real-time, cocok untuk infrastruktur kritikal    |
+| **2 Menit**  | Interval seimbang antara kecepatan deteksi dan beban server |
+| **5 Menit**  | Interval standar untuk monitoring umum                      |
+| **15 Menit** | Beban server rendah, cocok untuk perangkat non-kritikal     |
+| **30 Menit** | Interval minimal, hanya untuk keperluan basic monitoring    |
 
 Klik pada salah satu kartu interval untuk memilih. Interval yang aktif akan ditandai dengan highlight biru. Perubahan **langsung berlaku** setelah disimpan — scheduler backend akan otomatis restart dengan interval baru tanpa perlu restart server.
 
@@ -341,6 +346,7 @@ Untuk mengaktifkan notifikasi email:
 4. Klik **"Send Test Email"** untuk mengirim email test ke alamat tertentu dan memverifikasi bahwa konfigurasi SMTP sudah benar.
 
 Sistem akan mengirim email saat terjadi:
+
 - **Device DOWN** — berisi informasi perangkat, waktu kejadian, dan jumlah ping gagal.
 - **Device RECOVERED** — berisi informasi perangkat dan waktu pemulihan.
 
@@ -367,15 +373,16 @@ Sistem akan mengirim pesan Telegram saat terjadi event DOWN dan RECOVERED dengan
 
 Di bagian bawah halaman Settings terdapat panel **System Status** yang menampilkan kondisi layanan internal secara real-time (di-refresh otomatis setiap 30 detik):
 
-| Layanan         | Indikator                                                    |
-| --------------- | ------------------------------------------------------------ |
-| **API Server**  | ✅ Operational — selalu aktif selama backend berjalan         |
-| **Database**    | 🟢 Connected / 🔴 Disconnected — status koneksi PostgreSQL  |
-| **WebSocket**   | 🟢 Connected — status koneksi Socket.IO                      |
-| **Telegram Bot** | 🟢 Connected / 🔴 Failed / ⚪ Not Configured               |
-| **Email Service** | 🟢 Connected / 🔴 Failed / ⚪ Not Configured              |
+| Layanan           | Indikator                                                  |
+| ----------------- | ---------------------------------------------------------- |
+| **API Server**    | ✅ Operational — selalu aktif selama backend berjalan      |
+| **Database**      | 🟢 Connected / 🔴 Disconnected — status koneksi PostgreSQL |
+| **WebSocket**     | 🟢 Connected — status koneksi Socket.IO                    |
+| **Telegram Bot**  | 🟢 Connected / 🔴 Failed / ⚪ Not Configured               |
+| **Email Service** | 🟢 Connected / 🔴 Failed / ⚪ Not Configured               |
 
 Informasi tambahan:
+
 - **Uptime** — berapa lama backend telah berjalan sejak terakhir restart.
 - **Version** — versi aplikasi saat ini.
 
@@ -434,37 +441,43 @@ Berikut adalah alur lengkap bagaimana sistem mendeteksi gangguan dan mengirim no
 ### Dashboard
 
 | Dashboard |
-|-----------|
+| --- |
 | ![](screenshot_web/dashboard_utama.png) |
+| **Penjelasan:** Tampilan utama dashboard yang memberikan ringkasan status perangkat jaringan (Online, Warning, Offline). Anda dapat melihat grafik latency mini (sparkline) untuk memantau kestabilan koneksi, menggunakan filter pencarian perangkat, dan memantau live events di panel sebelah kanan secara real-time. |
 
 ---
 
 ### Device Detail Panel
 
-| Device Info & Traffic Stat | Network Health, Avail, Latency Chart, Ping Util & Status Time|
-|----------|----------------|
+| Device Info & Traffic Stat | Network Health, Avail, Latency Chart, Ping Util & Status Time |
+| --- | --- |
 | ![](screenshot_web/device_detail_panel_1.png) | ![](screenshot_web/device_detail_panel_2.png) |
+| **Penjelasan:** Bagian informasi utama perangkat (IP, MAC Address, Firmware) serta simulasi traffic bandwidth untuk mengilustrasikan keaktifan koneksi jaringan. | **Penjelasan:** Menampilkan ringkasan "Health Badge", perhitungan rata-rata uptime (Ketersediaan), grafik Latency Chart selama sesi berjalan, riwayat Status Timeline, serta utilitas manual ping terminal. |
 
 | Incident & Events |
-|------------------|
+| --- |
 | ![](screenshot_web/device_detail_panel_3.png) |
+| **Penjelasan:** Panel rekam jejak riwayat gangguan perangkat. Mencatat kapan perangkat mulai offline, berapa lama durasi gangguannya (downtime), dan daftar event alert yang pernah dikirimkan oleh sistem. |
 
 ---
 
 ### Device Management
 
 | Device Management |
-|-------------------|
+| --- |
 | ![](screenshot_web/device_management.png) |
+| **Penjelasan:** Halaman untuk melihat seluruh daftar inventaris perangkat jaringan dalam bentuk tabel. Di sini pengguna bisa melakukan manajemen CRUD (Create, Read, Update, Delete) data perangkat seperti menambahkan router/AP baru atau mengubah rincian lokasinya. |
 
 ---
 
 ### Settings
 
 | General Settings | Notification Settings |
-|------------------|-----------------------|
+| --- | --- |
 | ![](screenshot_web/setting_1.png) | ![](screenshot_web/setting_2.png) |
+| **Penjelasan:** Halaman pengaturan interval sistem untuk mengirimkan pesan ICMP (Ping Interval) serta pengaturan Fail Threshold untuk mencegah _false alarm_ jika koneksi hanya putus sesaat. | **Penjelasan:** Konfigurasi notifikasi yang akan diterima jika perangkat mengalami downtime. Anda bisa mendaftarkan email penerima dan mengatur chat ID bot Telegram agar terintegrasi dengan alert. |
 
 | System Status |
-|---------------|
+| --- |
 | ![](screenshot_web/setting_3.png) |
+| **Penjelasan:** Menampilkan ringkasan indikator konektivitas antar modul di sistem, seperti koneksi API server, ketersediaan Database, WebSocket, Telegram Bot, dan Email Service untuk memastikan tidak ada kesalahan integrasi pihak ketiga. |
