@@ -4,7 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PingService } from './monitoring/ping.service';
 import { SchedulerService } from './monitoring/scheduler.service';
 import { AlertModule } from './alert/alert.module';
@@ -56,6 +55,6 @@ import { SettingsModule } from './settings/settings.module';
   controllers: [AppController],
   // SchedulerService needs DeviceService, HistoryService, SettingsService
   // They are resolved because DeviceModule, HistoryModule, SettingsModule export them.
-  providers: [AppService, PingService, SchedulerService, MonitoringGateway],
+  providers: [PingService, SchedulerService, MonitoringGateway],
 })
 export class AppModule {}
