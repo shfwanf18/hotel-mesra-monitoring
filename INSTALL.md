@@ -1,86 +1,149 @@
-# 🚀 Panduan Instalasi (Development & Production Lokal)
+# 🚀 Installation Guide
 
-Sistem Mesra Network Monitoring dirancang untuk dijalankan secara langsung (*bare-metal*) di sistem operasi (Windows/Linux) menggunakan Node.js dan PostgreSQL.
-
-Berikut adalah langkah-langkah untuk menyiapkan dan menjalankan aplikasi ini dari awal.
+Dokumen ini menjelaskan cara menjalankan Mesra Network Monitoring pada lingkungan development maupun production tanpa menggunakan Docker.
 
 ---
 
-## 1️⃣ Prasyarat Sistem
+# 1. Requirements
 
-Pastikan aplikasi berikut sudah terpasang di komputer/server Anda:
-- **Node.js** (versi 18.x atau 20.x ke atas)
-- **PostgreSQL** (versi 15 atau 16)
-- **Git** (opsional, untuk *version control*)
+Pastikan software berikut sudah terpasang.
 
----
-
-## 2️⃣ Persiapan Database
-
-1. Buka PostgreSQL (menggunakan pgAdmin atau psql CLI).
-2. Buat database baru dengan nama `mesra_monitoring`.
-   ```sql
-   CREATE DATABASE mesra_monitoring;
-   ```
-3. Pastikan Anda mengingat **username** (biasanya `postgres`) dan **password** database Anda.
+* Node.js 18+ (disarankan versi LTS)
+* PostgreSQL 15 atau lebih baru
+* Git (opsional)
 
 ---
 
-## 3️⃣ Persiapan Repository & Environment Variables
+# 2. Create Database
 
-1. Buka terminal (Command Prompt / PowerShell / Bash).
-2. Pindah ke folder tempat Anda ingin menyimpan proyek, dan *clone* repository ini (atau salin folder *source code*).
-3. Buat file `.env` di folder utama (root) dari template yang disediakan:
-   ```bash
-   cp .env.example .env
-   ```
-4. Buka file `.env` yang baru dibuat dengan teks editor dan sesuaikan nilainya:
-   - Ganti `DB_PASSWORD` dengan password PostgreSQL Anda.
-   - Isi `TELEGRAM_BOT_TOKEN` dengan token dari @BotFather (jika ingin fitur Telegram aktif).
-   - Isi `MAIL_USER` dan `MAIL_PASS` (Gunakan *App Password* Gmail, bukan password login biasa).
-   - Biarkan `VITE_API_URL=http://localhost:3000` jika Anda hanya mengaksesnya di komputer yang sama. (Jika server akan diakses dari komputer lain, ubah `localhost` menjadi IP server Anda, misal: `http://192.168.1.50:3000`).
+Buat database baru di PostgreSQL.
+
+```sql
+CREATE DATABASE mesra_monitoring;
+```
+
+Catat username dan password PostgreSQL yang akan digunakan pada file `.env`.
 
 ---
 
-## 4️⃣ Menjalankan Aplikasi (Satu Perintah)
+# 3. Configure Environment
 
-Sekarang Anda bisa menginstall semua dependencies (backend & frontend) sekaligus dan menjalankan keduanya secara bersamaan (menggunakan *concurrently*).
+Salin file `.env.example` menjadi `.env`.
 
-1. Buka terminal (berada di folder utama `PROJECT-MESRA-Monitoring`).
-2. Install semua dependencies secara otomatis (alat utama, backend, dan frontend):
-   ```bash
-   npm install
-   ```
-3. Jalankan server backend (API) dan frontend (UI) secara bersamaan:
-   ```bash
-   npm run dev
-   ```
-   > **Catatan:** TypeORM akan secara otomatis membuatkan semua tabel di database Anda saat pertama kali backend dijalankan. Backend dan frontend akan berjalan di satu jendela terminal (ditandai label `BACKEND` dan `FRONTEND`).
+```bash
+cp .env.example .env
+```
 
-4. Buka browser dan akses alamat yang muncul (biasanya **http://localhost:5173**).
+Sesuaikan konfigurasi berikut:
+
+* Database
+* SMTP Email
+* Telegram Bot Token
+* VITE_API_URL
+
+Contoh:
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_DATABASE=mesra_monitoring
+
+TELEGRAM_BOT_TOKEN=
+
+MAIL_USER=
+MAIL_PASS=
+
+VITE_API_URL=http://localhost:3000
+```
+
+Jika frontend diakses dari komputer lain dalam jaringan, ubah `localhost` menjadi alamat IP server.
 
 ---
 
-## 🌐 Mode Produksi (Production Build)
+# 4. Install Dependencies
 
-Jika Anda ingin menjalankan aplikasi untuk jangka panjang sebagai servis permanen (bukan mode *development*):
+Jalankan dari folder utama project.
 
-### Build Frontend
+```bash
+npm install
+```
+
+Perintah ini akan menginstal dependency untuk root project, backend, dan frontend.
+
+---
+
+# 5. Run Development Server
+
+Masih dari folder utama project.
+
+```bash
+npm run dev
+```
+
+Service yang akan berjalan:
+
+* Backend API : http://localhost:3000
+* Frontend : http://localhost:5173
+
+Saat backend pertama kali dijalankan, TypeORM akan membuat tabel database secara otomatis sesuai konfigurasi project.
+
+---
+
+# 6. Production Build
+
+## Frontend
+
 ```bash
 cd frontend
 npm run build
 ```
-Proses ini akan menghasilkan folder `dist/` yang berisi file HTML/CSS/JS statis. Anda dapat menyajikan file ini menggunakan NGINX, Apache, atau web server lainnya.
 
-### Build Backend
+Folder `dist/` dapat disajikan menggunakan NGINX, Apache, atau web server lainnya.
+
+---
+
+## Backend
+
 ```bash
 cd backend
 npm run build
 npm run start:prod
 ```
-> **Tips:** Untuk server *production* Node.js, disarankan menggunakan *process manager* seperti **PM2** agar backend dapat berjalan di latar belakang dan otomatis *restart* jika komputer dihidupkan ulang.
-> ```bash
-> npm install -g pm2
-> cd backend
-> pm2 start dist/main.js --name "mesra-backend"
-> ```
+
+Untuk deployment jangka panjang, gunakan **PM2** agar backend tetap berjalan sebagai service.
+
+Install PM2:
+
+```bash
+npm install -g pm2
+```
+
+Menjalankan backend:
+
+```bash
+cd backend
+pm2 start dist/main.js --name mesra-backend
+```
+
+Melihat status:
+
+```bash
+pm2 status
+```
+
+Restart service:
+
+```bash
+pm2 restart mesra-backend
+```
+
+---
+
+# Notes
+
+* Jangan mengunggah file `.env` ke GitHub.
+* Gunakan `.env.example` sebagai template konfigurasi.
+* Pastikan PostgreSQL sudah berjalan sebelum backend dijalankan.
+* Untuk deployment production, disarankan menggunakan reverse proxy seperti NGINX.

@@ -1,81 +1,112 @@
 # 🌐 Mesra Network Monitoring
 
-Sistem monitoring jaringan real-time yang dirancang khusus untuk infrastruktur IT Hotel Mesra Samarinda. Aplikasi ini memantau perangkat jaringan seperti Router, Switch, Access Point, dan Server secara terus-menerus, memberikan wawasan *real-time* tentang ketersediaan dan latensi, serta mengirimkan notifikasi instan jika terjadi gangguan.
+Mesra Network Monitoring adalah aplikasi monitoring jaringan yang dikembangkan untuk membantu tim IT Hotel Mesra Samarinda memantau kondisi perangkat jaringan secara real-time.
 
-Dibangun dengan arsitektur modern menggunakan **NestJS**, **PostgreSQL**, **React**, dan **Socket.IO**.
+Aplikasi ini memonitor Router, Switch, Access Point, dan Server menggunakan ICMP Ping, kemudian menampilkan status perangkat melalui dashboard berbasis web. Selain itu, sistem juga mendukung notifikasi Telegram dan Email ketika perangkat mengalami gangguan maupun kembali normal.
+
+Project ini dibangun menggunakan **NestJS**, **PostgreSQL**, **React**, **Socket.IO**, dan **Tailwind CSS**.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Features
 
-### 📊 Real-time Dashboard
-- **Live Monitoring:** Memantau status (Online/Offline) dan latensi perangkat jaringan secara *real-time* tanpa perlu me-refresh halaman.
-- **Visualisasi Data:** Menampilkan grafik garis latensi (*sparkline*) untuk memantau performa jaringan dalam 40 pengecekan terakhir.
-- **Metrik Ketersediaan:** Menghitung persentase *uptime* dan mencatat total waktu *downtime* harian secara otomatis.
+### 📊 Real-time Monitoring
+
+* Monitoring status perangkat secara real-time (Online, Offline, Warning, Unknown).
+* Menampilkan latency setiap perangkat.
+* Grafik latency (sparkline) dari histori ping terbaru.
+* Perhitungan availability dan downtime secara otomatis.
 
 ### 🖧 Device Management
-- Kelola daftar perangkat yang ingin dipantau langsung dari UI (Tambah, Edit, Hapus).
-- Mendukung berbagai jenis perangkat (Router, Switch, Server, Access Point).
-- Semua perubahan pada perangkat akan langsung diterapkan oleh sistem monitoring (*scheduler*) tanpa perlu me-restart aplikasi.
 
-### 🚨 Alert & Notifikasi
-- **Telegram Bot:** Integrasi langsung dengan bot Telegram untuk mengirim pesan instan ke staf IT saat perangkat terdeteksi *Offline* atau kembali *Online*.
-- **Email Notifications:** Mengirim detail insiden melalui email.
-- Aturan *Threshold*: Menghindari *false alarm* dengan memastikan perangkat benar-benar mati sebelum notifikasi dikirim (misal: 3 kali gagal berturut-turut).
+* Menambah, mengubah, dan menghapus perangkat langsung dari dashboard.
+* Mendukung berbagai jenis perangkat seperti Router, Switch, Access Point, dan Server.
+* Perubahan perangkat langsung diterapkan ke monitoring tanpa perlu restart aplikasi.
 
-### 📋 Incident History & Event Log
-- **Manajemen Insiden:** Otomatis mencatat kapan perangkat mati (*Started*), menghitung durasi *downtime*, dan menandai status penyelesaian (*Resolved* atau *Active Incident*).
-- **Event Log:** Mencatat segala aktivitas terkait perangkat seperti `DOWN`, `RECOVERED`, `ALERT_SENT`, dan `MANUAL_TEST`.
+### 🚨 Notifications
 
-### 🎛️ Settings & Konfigurasi Dinamis
-- **Interval & Threshold:** Atur seberapa sering sistem mengecek jaringan (interval ping) dan batas toleransi kegagalan langsung dari halaman *Settings*.
-- **Manajemen Penerima Alert:** Tambah atau hapus penerima notifikasi Telegram dan Email tanpa harus menyentuh kode program.
-- **System Status:** Memantau kesehatan komponen internal aplikasi (Database, WebSocket, Scheduler, dan Mail Service).
+* Notifikasi Telegram ketika perangkat Offline maupun Recovery.
+* Notifikasi Email dengan informasi insiden yang lebih lengkap.
+* Fail Threshold untuk mengurangi false alarm.
 
-### 💻 Ping Test Terminal
-- Disediakan terminal simulasi langsung pada halaman detail perangkat untuk menjalankan tes ping secara manual dari server ke perangkat tanpa perlu membuka aplikasi *Command Prompt* atau *Terminal* server.
+### 📋 Incident & Event History
 
----
+* Mencatat waktu mulai gangguan, durasi downtime, dan waktu recovery.
+* Menyimpan aktivitas seperti:
 
-## 🏗️ Teknologi yang Digunakan
+  * DOWN
+  * RECOVERY
+  * ALERT SENT
+  * MANUAL TEST
 
-Aplikasi ini menggunakan pendekatan arsitektur *monorepo* sederhana yang terbagi menjadi dua bagian:
+### ⚙️ Settings
 
-| Bagian | Teknologi |
-|---|---|
-| **Backend API** | NestJS (Node.js framework), TypeORM, PostgreSQL, `ping` library |
-| **Frontend** | React, Vite, TypeScript, Tailwind CSS, Framer Motion |
-| **Realtime Engine** | Socket.IO |
+* Mengatur interval ping dan fail threshold.
+* Mengelola penerima notifikasi Telegram dan Email.
+* Melihat status layanan internal seperti API, Database, WebSocket, Telegram Bot, dan Email Service.
+
+### 💻 Manual Ping Test
+
+Menjalankan ping langsung dari server melalui halaman Device Detail tanpa perlu membuka Command Prompt atau Terminal.
 
 ---
 
-## 📁 Struktur Project
+## 🛠️ Tech Stack
 
-```
+| Component     | Technology                            |
+| ------------- | ------------------------------------- |
+| Backend       | NestJS, TypeORM, PostgreSQL           |
+| Frontend      | React, Vite, TypeScript, Tailwind CSS |
+| Realtime      | Socket.IO                             |
+| Monitoring    | ICMP Ping                             |
+| Notifications | Telegram Bot API, Nodemailer          |
+
+---
+
+## 📁 Project Structure
+
+```text
 PROJECT-MESRA-Monitoring/
-├── backend/               # NestJS API Server
+├── backend/
 │   ├── src/
-│   │   ├── device/        # Modul CRUD Perangkat
-│   │   ├── history/       # Modul pencatatan Ping & Insiden
-│   │   ├── settings/      # Modul Pengaturan Aplikasi
-│   │   ├── monitoring/    # Ping Scheduler + WebSocket Gateway
-│   │   ├── alert/         # Layanan Email & Telegram
-│   │   └── database/      # TypeORM Entities
+│   │   ├── alert/
+│   │   ├── database/
+│   │   ├── device/
+│   │   ├── history/
+│   │   ├── monitoring/
+│   │   └── settings/
 │   └── package.json
-├── frontend/              # React Web Client
+│
+├── frontend/
 │   ├── src/
-│   │   ├── components/    # Komponen UI Reusable (Layout, Widget)
-│   │   ├── pages/         # Halaman Utama (Dashboard, Settings, dll)
-│   │   ├── context/       # React Context untuk State Global
-│   │   └── index.css      # Desain Sistem & Tailwind
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   └── utils/
 │   └── package.json
-├── .env.example           # Template Konfigurasi Environment
-├── INSTALL.md             # Panduan Instalasi
-└── README.md              # File ini
+│
+├── .env.example
+├── INSTALL.md
+└── README.md
 ```
 
 ---
 
-## 🚀 Panduan Instalasi & Penggunaan
+## 🚀 Installation
 
-Karena aplikasi ini dikembangkan untuk berjalan langsung di atas sistem Windows server / PC (tanpa Docker), silakan baca panduan lengkap instalasinya pada file **[INSTALL.md](./INSTALL.md)**.
+Petunjuk instalasi tersedia pada file **INSTALL.md**.
+
+Silakan ikuti langkah-langkah di sana untuk menjalankan aplikasi pada lingkungan development maupun production.
+
+---
+
+## 📸 Screenshots
+
+Tambahkan beberapa screenshot aplikasi agar pengguna dapat melihat tampilan dashboard tanpa perlu menjalankan project.
+
+Contoh:
+
+* Dashboard
+* Device Detail
+* Device Management
+* Settings
