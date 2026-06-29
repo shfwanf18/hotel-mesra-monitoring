@@ -431,10 +431,40 @@ Berikut adalah alur lengkap bagaimana sistem mendeteksi gangguan dan mengirim no
 
 ## 📸 Screenshots
 
-> Tambahkan screenshot dari halaman-halaman berikut agar pengguna dapat melihat tampilan aplikasi:
->
-> - Dashboard (tampilan utama dengan Device Cards dan Live Events)
-> - Device Detail Panel (panel informasi lengkap perangkat)
-> - Device Management (halaman CRUD perangkat)
-> - Settings (konfigurasi monitoring dan notifikasi)
-> - System Status (status layanan internal)
+### Dashboard
+
+| Dashboard |
+|-----------|
+| ![](screenshot_web/dashboard_utama.png) |
+
+---
+
+### Device Detail Panel
+
+| Device Info & Traffic Stat | Network Health, Avail, Latency Chart, Ping Util & Status Time|
+|----------|----------------|
+| ![](screenshot_web/device_detail_panel_1.png) | ![](screenshot_web/device_detail_panel_2.png) |
+
+| Incident & Events |
+|------------------|
+| ![](screenshot_web/device_detail_panel_3.png) |
+
+---
+
+### Device Management
+
+| Device Management |
+|-------------------|
+| ![](screenshot_web/device_management.png) |
+
+---
+
+### Settings
+
+| General Settings | Notification Settings |
+|------------------|-----------------------|
+| ![](screenshot_web/setting_1.png) | ![](screenshot_web/setting_2.png) |
+
+| System Status |
+|---------------|
+| ![](screenshot_web/setting_3.png) |
