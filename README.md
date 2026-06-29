@@ -94,7 +94,7 @@ PROJECT-MESRA-Monitoring/
 
 ## 🚀 Installation
 
-Petunjuk instalasi tersedia pada file **INSTALL.md**.
+Petunjuk instalasi tersedia pada file **[INSTALL.md](./INSTALL.md)**.
 
 Silakan ikuti langkah-langkah di sana untuk menjalankan aplikasi pada lingkungan development maupun production.
 
