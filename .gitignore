@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────────
+# .gitignore — Mesra Network Monitoring
+# ─────────────────────────────────────────────────────
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+
+# Environment secrets
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Docker volumes
+postgres_data/
