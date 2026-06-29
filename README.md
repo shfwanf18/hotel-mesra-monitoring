@@ -443,7 +443,7 @@ Berikut adalah alur lengkap bagaimana sistem mendeteksi gangguan dan mengirim no
 | Dashboard |
 | --- |
 | ![](screenshot_web/dashboard_utama.png) |
-| **Penjelasan:** Tampilan utama dashboard yang memberikan ringkasan status perangkat jaringan (Online, Warning, Offline). Anda dapat melihat grafik latency mini (sparkline) untuk memantau kestabilan koneksi, menggunakan filter pencarian perangkat, dan memantau live events di panel sebelah kanan secara real-time. |
+| **Penjelasan:** Dashboard utama untuk memantau seluruh perangkat jaringan secara real-time. Dari halaman ini pengguna dapat melihat ringkasan status perangkat, mencari perangkat tertentu, memantau perubahan latency, serta melihat aktivitas terbaru yang muncul secara langsung pada panel Live Events. |
 
 ---
 
@@ -452,12 +452,12 @@ Berikut adalah alur lengkap bagaimana sistem mendeteksi gangguan dan mengirim no
 | Device Info & Traffic Stat | Network Health, Avail, Latency Chart, Ping Util & Status Time |
 | --- | --- |
 | ![](screenshot_web/device_detail_panel_1.png) | ![](screenshot_web/device_detail_panel_2.png) |
-| **Penjelasan:** Bagian informasi utama perangkat (IP, MAC Address, Firmware) serta simulasi traffic bandwidth untuk mengilustrasikan keaktifan koneksi jaringan. | **Penjelasan:** Menampilkan ringkasan "Health Badge", perhitungan rata-rata uptime (Ketersediaan), grafik Latency Chart selama sesi berjalan, riwayat Status Timeline, serta utilitas manual ping terminal. |
+| **Penjelasan:** Menampilkan informasi utama perangkat seperti alamat IP, MAC Address, model, firmware, serta statistik traffic upload dan download. Seluruh informasi dasar perangkat tersedia dalam satu tampilan sehingga lebih mudah saat melakukan identifikasi. | **Penjelasan:** Berisi ringkasan kondisi perangkat, availability, grafik latency, status timeline, serta terminal ping yang dapat digunakan untuk melakukan pengujian koneksi langsung dari aplikasi. |
 
 | Incident & Events |
 | --- |
 | ![](screenshot_web/device_detail_panel_3.png) |
-| **Penjelasan:** Panel rekam jejak riwayat gangguan perangkat. Mencatat kapan perangkat mulai offline, berapa lama durasi gangguannya (downtime), dan daftar event alert yang pernah dikirimkan oleh sistem. |
+| **Penjelasan:** Menampilkan riwayat gangguan yang pernah terjadi pada perangkat, mulai dari waktu perangkat offline, durasi downtime, penyebab gangguan, hingga daftar event seperti DOWN, RECOVERY, ALERT SENT, dan MANUAL TEST. |
 
 ---
 
@@ -466,7 +466,7 @@ Berikut adalah alur lengkap bagaimana sistem mendeteksi gangguan dan mengirim no
 | Device Management |
 | --- |
 | ![](screenshot_web/device_management.png) |
-| **Penjelasan:** Halaman untuk melihat seluruh daftar inventaris perangkat jaringan dalam bentuk tabel. Di sini pengguna bisa melakukan manajemen CRUD (Create, Read, Update, Delete) data perangkat seperti menambahkan router/AP baru atau mengubah rincian lokasinya. |
+| **Penjelasan:** Halaman untuk mengelola seluruh perangkat yang dipantau oleh sistem. Pengguna dapat menambahkan perangkat baru, mengubah informasi perangkat, maupun menghapus perangkat yang sudah tidak digunakan. |
 
 ---
 
@@ -475,9 +475,9 @@ Berikut adalah alur lengkap bagaimana sistem mendeteksi gangguan dan mengirim no
 | General Settings | Notification Settings |
 | --- | --- |
 | ![](screenshot_web/setting_1.png) | ![](screenshot_web/setting_2.png) |
-| **Penjelasan:** Halaman pengaturan interval sistem untuk mengirimkan pesan ICMP (Ping Interval) serta pengaturan Fail Threshold untuk mencegah _false alarm_ jika koneksi hanya putus sesaat. | **Penjelasan:** Konfigurasi notifikasi yang akan diterima jika perangkat mengalami downtime. Anda bisa mendaftarkan email penerima dan mengatur chat ID bot Telegram agar terintegrasi dengan alert. |
+| **Penjelasan:** Digunakan untuk mengatur parameter utama proses monitoring, seperti interval pengecekan perangkat dan Fail Threshold agar sistem tidak mudah mengirim false alarm saat terjadi gangguan singkat. | **Penjelasan:** Halaman konfigurasi notifikasi Email dan Telegram. Pengguna dapat menambahkan penerima alert, menghubungkan Telegram Bot, serta mengaktifkan atau menonaktifkan layanan notifikasi sesuai kebutuhan. |
 
 | System Status |
 | --- |
 | ![](screenshot_web/setting_3.png) |
-| **Penjelasan:** Menampilkan ringkasan indikator konektivitas antar modul di sistem, seperti koneksi API server, ketersediaan Database, WebSocket, Telegram Bot, dan Email Service untuk memastikan tidak ada kesalahan integrasi pihak ketiga. |
+| **Penjelasan:** Menampilkan kondisi seluruh layanan internal aplikasi, seperti API Server, Database, WebSocket, Telegram Bot, dan Email Service sehingga pengguna dapat memastikan sistem monitoring berjalan dengan baik. |
