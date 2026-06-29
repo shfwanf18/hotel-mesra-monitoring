@@ -6,6 +6,7 @@ import { MonitoringGateway } from './monitoring.gateway';
 import { DeviceService } from '../device/device.service';
 import { HistoryService } from '../history/history.service';
 import { SettingsService } from '../settings/settings.service';
+import { Subscription } from 'rxjs';
 
 interface TargetState {
   failCount: number;
@@ -17,6 +18,7 @@ export class SchedulerService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(SchedulerService.name);
   private targetStates: Record<string, TargetState> = {};
   private intervalTimer: NodeJS.Timeout | null = null;
+  private settingsSub: Subscription | null = null;
 
   constructor(
     private pingService: PingService,
@@ -30,10 +32,16 @@ export class SchedulerService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     this.startInterval();
+    this.settingsSub = this.settingsService.settingsUpdated$.subscribe(() => {
+      this.startInterval();
+    });
   }
 
   onModuleDestroy() {
     this.stopInterval();
+    if (this.settingsSub) {
+      this.settingsSub.unsubscribe();
+    }
   }
 
   async startInterval() {

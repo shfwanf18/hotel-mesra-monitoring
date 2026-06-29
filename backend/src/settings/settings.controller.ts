@@ -23,9 +23,7 @@ export class SettingsController {
 
   @Patch()
   async updateSettings(@Body() updates: Record<string, string>) {
-    for (const [key, value] of Object.entries(updates)) {
-      await this.settingsService.set(key, value);
-    }
+    await this.settingsService.setMany(updates);
     return { message: 'Settings updated successfully' };
   }
 

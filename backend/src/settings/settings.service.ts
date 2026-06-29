@@ -2,12 +2,14 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AppSettingsEntity } from '../database/entities/app-settings.entity';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class SettingsService implements OnModuleInit {
   private cache: Record<string, string> = {};
   private lastFetched = 0;
   private readonly CACHE_TTL_MS = 30000; // 30 seconds cache
+  public settingsUpdated$ = new Subject<void>();
 
   constructor(
     @InjectRepository(AppSettingsEntity)
@@ -49,6 +51,21 @@ export class SettingsService implements OnModuleInit {
     }
     await this.settingsRepo.save(setting);
     this.cache[key] = value; // invalidate local cache for this key
+    this.settingsUpdated$.next();
+  }
+
+  async setMany(updates: Record<string, string>): Promise<void> {
+    for (const [key, value] of Object.entries(updates)) {
+      let setting = await this.settingsRepo.findOne({ where: { key } });
+      if (!setting) {
+        setting = this.settingsRepo.create({ key, value });
+      } else {
+        setting.value = value;
+      }
+      await this.settingsRepo.save(setting);
+      this.cache[key] = value;
+    }
+    this.settingsUpdated$.next();
   }
 
   async getPingIntervalMs(): Promise<number> {
