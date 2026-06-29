@@ -42,45 +42,22 @@ Pastikan aplikasi berikut sudah terpasang di komputer/server Anda:
 
 ---
 
-## 4️⃣ Menjalankan Backend (NestJS API)
+## 4️⃣ Menjalankan Aplikasi (Satu Perintah)
 
-Backend bertugas untuk menjalankan *scheduler* ping, menyimpan data ke database, dan melayani WebSocket.
+Sekarang Anda bisa menginstall semua dependencies (backend & frontend) sekaligus dan menjalankan keduanya secara bersamaan (menggunakan *concurrently*).
 
-1. Buka terminal baru.
-2. Masuk ke folder backend:
-   ```bash
-   cd backend
-   ```
-3. Install semua *dependencies*:
+1. Buka terminal (berada di folder utama `PROJECT-MESRA-Monitoring`).
+2. Install semua dependencies secara otomatis (alat utama, backend, dan frontend):
    ```bash
    npm install
    ```
-4. Jalankan server backend dalam mode pengembangan (*development*):
-   ```bash
-   npm run start:dev
-   ```
-   > **Catatan:** TypeORM akan secara otomatis membuatkan semua tabel di database Anda saat pertama kali backend dijalankan.
-
----
-
-## 5️⃣ Menjalankan Frontend (React UI)
-
-Frontend adalah tampilan UI web yang diakses oleh pengguna.
-
-1. Buka terminal baru (biarkan terminal backend tetap berjalan).
-2. Masuk ke folder frontend:
-   ```bash
-   cd frontend
-   ```
-3. Install semua *dependencies*:
-   ```bash
-   npm install
-   ```
-4. Jalankan *development server* Vite:
+3. Jalankan server backend (API) dan frontend (UI) secara bersamaan:
    ```bash
    npm run dev
    ```
-5. Buka browser dan akses alamat yang muncul (biasanya **http://localhost:5173**).
+   > **Catatan:** TypeORM akan secara otomatis membuatkan semua tabel di database Anda saat pertama kali backend dijalankan. Backend dan frontend akan berjalan di satu jendela terminal (ditandai label `BACKEND` dan `FRONTEND`).
+
+4. Buka browser dan akses alamat yang muncul (biasanya **http://localhost:5173**).
 
 ---
 
