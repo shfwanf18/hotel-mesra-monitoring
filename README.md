@@ -1,103 +1,51 @@
 # 🌐 Mesra Network Monitoring
 
-Sistem monitoring jaringan real-time untuk Hotel Mesra Samarinda.  
-Dibangun dengan **NestJS + PostgreSQL + React + Socket.IO**.
+Sistem monitoring jaringan real-time yang dirancang khusus untuk infrastruktur IT Hotel Mesra Samarinda. Aplikasi ini memantau perangkat jaringan seperti Router, Switch, Access Point, dan Server secara terus-menerus, memberikan wawasan *real-time* tentang ketersediaan dan latensi, serta mengirimkan notifikasi instan jika terjadi gangguan.
+
+Dibangun dengan arsitektur modern menggunakan **NestJS**, **PostgreSQL**, **React**, dan **Socket.IO**.
 
 ---
 
-## 🚀 Cara Menjalankan (Docker — Direkomendasikan)
+## ✨ Fitur Utama
 
-### Prasyarat
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) terinstall dan berjalan
-- Port **80** dan **3000** tidak dipakai aplikasi lain
+### 📊 Real-time Dashboard
+- **Live Monitoring:** Memantau status (Online/Offline) dan latensi perangkat jaringan secara *real-time* tanpa perlu me-refresh halaman.
+- **Visualisasi Data:** Menampilkan grafik garis latensi (*sparkline*) untuk memantau performa jaringan dalam 40 pengecekan terakhir.
+- **Metrik Ketersediaan:** Menghitung persentase *uptime* dan mencatat total waktu *downtime* harian secara otomatis.
 
-### Langkah-langkah
+### 🖧 Device Management
+- Kelola daftar perangkat yang ingin dipantau langsung dari UI (Tambah, Edit, Hapus).
+- Mendukung berbagai jenis perangkat (Router, Switch, Server, Access Point).
+- Semua perubahan pada perangkat akan langsung diterapkan oleh sistem monitoring (*scheduler*) tanpa perlu me-restart aplikasi.
 
-**1. Clone / copy project ke komputer tujuan**
+### 🚨 Alert & Notifikasi
+- **Telegram Bot:** Integrasi langsung dengan bot Telegram untuk mengirim pesan instan ke staf IT saat perangkat terdeteksi *Offline* atau kembali *Online*.
+- **Email Notifications:** Mengirim detail insiden melalui email.
+- Aturan *Threshold*: Menghindari *false alarm* dengan memastikan perangkat benar-benar mati sebelum notifikasi dikirim (misal: 3 kali gagal berturut-turut).
 
-**2. Buat file `.env` dari template**
-```bash
-copy .env.example .env
-```
+### 📋 Incident History & Event Log
+- **Manajemen Insiden:** Otomatis mencatat kapan perangkat mati (*Started*), menghitung durasi *downtime*, dan menandai status penyelesaian (*Resolved* atau *Active Incident*).
+- **Event Log:** Mencatat segala aktivitas terkait perangkat seperti `DOWN`, `RECOVERED`, `ALERT_SENT`, dan `MANUAL_TEST`.
 
-**3. Edit `.env` sesuai kebutuhan**
-```env
-# Jika deploy di server lain, ganti IP di baris ini:
-VITE_API_URL=http://192.168.1.100:3000
+### 🎛️ Settings & Konfigurasi Dinamis
+- **Interval & Threshold:** Atur seberapa sering sistem mengecek jaringan (interval ping) dan batas toleransi kegagalan langsung dari halaman *Settings*.
+- **Manajemen Penerima Alert:** Tambah atau hapus penerima notifikasi Telegram dan Email tanpa harus menyentuh kode program.
+- **System Status:** Memantau kesehatan komponen internal aplikasi (Database, WebSocket, Scheduler, dan Mail Service).
 
-# Isi email untuk notifikasi alert:
-MAIL_USER=your_email@gmail.com
-MAIL_PASS=your_app_password
-MAIL_TO=recipient@gmail.com
-```
+### 💻 Ping Test Terminal
+- Disediakan terminal simulasi langsung pada halaman detail perangkat untuk menjalankan tes ping secara manual dari server ke perangkat tanpa perlu membuka aplikasi *Command Prompt* atau *Terminal* server.
 
-**4. Jalankan semua service**
-```bash
-docker compose up -d
-```
+---
 
-Tunggu ~30 detik hingga semua container siap. Lalu buka browser:
+## 🏗️ Teknologi yang Digunakan
 
-| Service | URL |
+Aplikasi ini menggunakan pendekatan arsitektur *monorepo* sederhana yang terbagi menjadi dua bagian:
+
+| Bagian | Teknologi |
 |---|---|
-| **Dashboard** | http://localhost |
-| **Backend API** | http://localhost:3000 |
-| **Database** | localhost:5432 |
-
-**5. (Opsional) Lihat log real-time**
-```bash
-docker compose logs -f backend
-```
-
----
-
-## 🔄 Update ke Versi Baru
-
-```bash
-docker compose down
-docker compose up -d --build
-```
-
----
-
-## 🛑 Menghentikan Aplikasi
-
-```bash
-# Stop sementara (data tetap tersimpan)
-docker compose stop
-
-# Stop dan hapus container (data tetap di volume)
-docker compose down
-
-# Stop + hapus semua data (HATI-HATI: menghapus database!)
-docker compose down -v
-```
-
----
-
-## 🔧 Menjalankan Tanpa Docker (Development)
-
-### Prasyarat
-- Node.js 20+
-- PostgreSQL 15+ terinstall dan berjalan
-- Database `mesra_monitoring` sudah dibuat
-
-### Backend
-```bash
-cd backend
-npm install
-npm run seed        # Isi data awal ke database (jalankan sekali)
-npm run start:dev   # Jalankan dev server
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Buka http://localhost:5173
+| **Backend API** | NestJS (Node.js framework), TypeORM, PostgreSQL, `ping` library |
+| **Frontend** | React, Vite, TypeScript, Tailwind CSS, Framer Motion |
+| **Realtime Engine** | Socket.IO |
 
 ---
 
@@ -105,49 +53,29 @@ Buka http://localhost:5173
 
 ```
 PROJECT-MESRA-Monitoring/
-├── backend/               # NestJS API
+├── backend/               # NestJS API Server
 │   ├── src/
-│   │   ├── device/        # CRUD Devices
-│   │   ├── history/       # Ping history & uptime stats
-│   │   ├── settings/      # App settings (ping interval, dll)
-│   │   ├── monitoring/    # Scheduler + WebSocket gateway
-│   │   ├── alert/         # Email notifications
-│   │   └── database/      # TypeORM entities & seeds
-│   └── Dockerfile
-├── frontend/              # React + Vite
+│   │   ├── device/        # Modul CRUD Perangkat
+│   │   ├── history/       # Modul pencatatan Ping & Insiden
+│   │   ├── settings/      # Modul Pengaturan Aplikasi
+│   │   ├── monitoring/    # Ping Scheduler + WebSocket Gateway
+│   │   ├── alert/         # Layanan Email & Telegram
+│   │   └── database/      # TypeORM Entities
+│   └── package.json
+├── frontend/              # React Web Client
 │   ├── src/
-│   │   ├── components/    # UI components
-│   │   ├── pages/         # Device Management, Settings
-│   │   └── types/         # TypeScript interfaces
-│   ├── Dockerfile
-│   └── nginx.conf
-├── docker-compose.yml     # Orkestrasi semua service
-├── .env.example           # Template konfigurasi
-└── README.md
+│   │   ├── components/    # Komponen UI Reusable (Layout, Widget)
+│   │   ├── pages/         # Halaman Utama (Dashboard, Settings, dll)
+│   │   ├── context/       # React Context untuk State Global
+│   │   └── index.css      # Desain Sistem & Tailwind
+│   └── package.json
+├── .env.example           # Template Konfigurasi Environment
+├── INSTALL.md             # Panduan Instalasi
+└── README.md              # File ini
 ```
 
 ---
 
-## 🔑 Environment Variables
+## 🚀 Panduan Instalasi & Penggunaan
 
-| Variable | Default | Keterangan |
-|---|---|---|
-| `DB_PASSWORD` | `wawan` | Password PostgreSQL |
-| `DB_DATABASE` | `mesra_monitoring` | Nama database |
-| `MAIL_USER` | — | Email Gmail pengirim alert |
-| `MAIL_PASS` | — | App Password Gmail |
-| `MAIL_TO` | — | Email penerima alert |
-| `VITE_API_URL` | `http://localhost:3000` | URL backend (untuk browser) |
-
----
-
-## 🏗️ Teknologi
-
-| Layer | Teknologi |
-|---|---|
-| Backend API | NestJS + TypeORM |
-| Database | PostgreSQL 16 |
-| Realtime | Socket.IO |
-| Frontend | React + Vite + Tailwind |
-| Web Server | Nginx |
-| Container | Docker + Docker Compose |
+Karena aplikasi ini dikembangkan untuk berjalan langsung di atas sistem Windows server / PC (tanpa Docker), silakan baca panduan lengkap instalasinya pada file **[INSTALL.md](./INSTALL.md)**.
